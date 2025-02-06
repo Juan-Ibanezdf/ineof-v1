@@ -1,0 +1,528 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API para gerenciamento de campanhas, equipamentos e dados LIDAR.",
+        "title": "Ineof API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/campanhas": {
+            "get": {
+                "description": "Retorna todas as campanhas registradas no sistema",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Campanhas"
+                ],
+                "summary": "Listar todas as campanhas",
+                "responses": {
+                    "200": {
+                        "description": "Lista de campanhas",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.CampanhaResponse"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria uma nova campanha no sistema",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Campanhas"
+                ],
+                "summary": "Criar uma nova campanha",
+                "parameters": [
+                    {
+                        "description": "Dados da campanha",
+                        "name": "campanha",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.createCampanhaRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Campanha criada com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.createCampanhaResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de requisição inválida",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/campanhas/{id}": {
+            "get": {
+                "description": "Retorna os detalhes de uma campanha específica",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Campanhas"
+                ],
+                "summary": "Buscar uma campanha pelo ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da campanha",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes da campanha",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.getCampanhaResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "ID inválido",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Campanha não encontrada",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza os dados de uma campanha existente pelo ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Campanhas"
+                ],
+                "summary": "Atualizar uma campanha",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da Campanha",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados da campanha a serem atualizados",
+                        "name": "campanha",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.updateCampanhaRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Campanha atualizada com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.updateCampanhaResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de requisição inválida",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Campanha não encontrada",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove uma campanha do sistema pelo ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Campanhas"
+                ],
+                "summary": "Deletar uma campanha",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID da Campanha",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mensagem de sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.deleteCampanhaResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de requisição inválida",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Campanha não encontrada",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handlers.createCampanhaRequest": {
+            "type": "object",
+            "required": [
+                "localizacao",
+                "nome"
+            ],
+            "properties": {
+                "contato": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "data_fim": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_inicio": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "descricao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "equipe": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "imagem": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "objetivos": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "status": {
+                    "$ref": "#/definitions/models.NullString"
+                }
+            }
+        },
+        "handlers.createCampanhaResponse": {
+            "type": "object",
+            "properties": {
+                "contato": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "data_fim": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_inicio": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "descricao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "equipe": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imagem": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "objetivos": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "status": {
+                    "$ref": "#/definitions/models.NullString"
+                }
+            }
+        },
+        "handlers.deleteCampanhaResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.getCampanhaResponse": {
+            "type": "object",
+            "properties": {
+                "contato": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "data_fim": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_inicio": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "descricao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "equipe": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imagem": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "objetivos": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "status": {
+                    "$ref": "#/definitions/models.NullString"
+                }
+            }
+        },
+        "handlers.updateCampanhaRequest": {
+            "type": "object",
+            "properties": {
+                "contato": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "data_fim": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_inicio": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "descricao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "equipe": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "imagem": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "objetivos": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "status": {
+                    "$ref": "#/definitions/models.NullString"
+                }
+            }
+        },
+        "handlers.updateCampanhaResponse": {
+            "type": "object",
+            "properties": {
+                "contato": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "data_fim": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_inicio": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "descricao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "equipe": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imagem": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "objetivos": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "status": {
+                    "$ref": "#/definitions/models.NullString"
+                }
+            }
+        },
+        "models.CampanhaResponse": {
+            "type": "object",
+            "properties": {
+                "contato": {
+                    "type": "string"
+                },
+                "data_fim": {
+                    "type": "string"
+                },
+                "data_inicio": {
+                    "type": "string"
+                },
+                "descricao": {
+                    "type": "string"
+                },
+                "equipe": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imagem": {
+                    "type": "string"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "type": "string"
+                },
+                "objetivos": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.NullString": {
+            "type": "object",
+            "properties": {
+                "string": {
+                    "type": "string"
+                },
+                "valid": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "models.NullTime": {
+            "type": "object",
+            "properties": {
+                "string": {
+                    "type": "string"
+                },
+                "valid": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

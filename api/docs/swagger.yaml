@@ -1,0 +1,348 @@
+basePath: /api/v1
+definitions:
+  handlers.createCampanhaRequest:
+    properties:
+      contato:
+        $ref: '#/definitions/models.NullString'
+      data_fim:
+        $ref: '#/definitions/models.NullTime'
+      data_inicio:
+        $ref: '#/definitions/models.NullTime'
+      descricao:
+        $ref: '#/definitions/models.NullString'
+      equipe:
+        $ref: '#/definitions/models.NullString'
+      imagem:
+        $ref: '#/definitions/models.NullString'
+      localizacao:
+        type: string
+      nome:
+        type: string
+      notas:
+        $ref: '#/definitions/models.NullString'
+      objetivos:
+        $ref: '#/definitions/models.NullString'
+      status:
+        $ref: '#/definitions/models.NullString'
+    required:
+    - localizacao
+    - nome
+    type: object
+  handlers.createCampanhaResponse:
+    properties:
+      contato:
+        $ref: '#/definitions/models.NullString'
+      data_fim:
+        $ref: '#/definitions/models.NullTime'
+      data_inicio:
+        $ref: '#/definitions/models.NullTime'
+      descricao:
+        $ref: '#/definitions/models.NullString'
+      equipe:
+        $ref: '#/definitions/models.NullString'
+      id:
+        type: string
+      imagem:
+        $ref: '#/definitions/models.NullString'
+      localizacao:
+        type: string
+      nome:
+        type: string
+      notas:
+        $ref: '#/definitions/models.NullString'
+      objetivos:
+        $ref: '#/definitions/models.NullString'
+      status:
+        $ref: '#/definitions/models.NullString'
+    type: object
+  handlers.deleteCampanhaResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  handlers.getCampanhaResponse:
+    properties:
+      contato:
+        $ref: '#/definitions/models.NullString'
+      data_fim:
+        $ref: '#/definitions/models.NullTime'
+      data_inicio:
+        $ref: '#/definitions/models.NullTime'
+      descricao:
+        $ref: '#/definitions/models.NullString'
+      equipe:
+        $ref: '#/definitions/models.NullString'
+      id:
+        type: string
+      imagem:
+        $ref: '#/definitions/models.NullString'
+      localizacao:
+        type: string
+      nome:
+        type: string
+      notas:
+        $ref: '#/definitions/models.NullString'
+      objetivos:
+        $ref: '#/definitions/models.NullString'
+      status:
+        $ref: '#/definitions/models.NullString'
+    type: object
+  handlers.updateCampanhaRequest:
+    properties:
+      contato:
+        $ref: '#/definitions/models.NullString'
+      data_fim:
+        $ref: '#/definitions/models.NullTime'
+      data_inicio:
+        $ref: '#/definitions/models.NullTime'
+      descricao:
+        $ref: '#/definitions/models.NullString'
+      equipe:
+        $ref: '#/definitions/models.NullString'
+      imagem:
+        $ref: '#/definitions/models.NullString'
+      localizacao:
+        type: string
+      nome:
+        type: string
+      notas:
+        $ref: '#/definitions/models.NullString'
+      objetivos:
+        $ref: '#/definitions/models.NullString'
+      status:
+        $ref: '#/definitions/models.NullString'
+    type: object
+  handlers.updateCampanhaResponse:
+    properties:
+      contato:
+        $ref: '#/definitions/models.NullString'
+      data_fim:
+        $ref: '#/definitions/models.NullTime'
+      data_inicio:
+        $ref: '#/definitions/models.NullTime'
+      descricao:
+        $ref: '#/definitions/models.NullString'
+      equipe:
+        $ref: '#/definitions/models.NullString'
+      id:
+        type: string
+      imagem:
+        $ref: '#/definitions/models.NullString'
+      localizacao:
+        type: string
+      nome:
+        type: string
+      notas:
+        $ref: '#/definitions/models.NullString'
+      objetivos:
+        $ref: '#/definitions/models.NullString'
+      status:
+        $ref: '#/definitions/models.NullString'
+    type: object
+  models.CampanhaResponse:
+    properties:
+      contato:
+        type: string
+      data_fim:
+        type: string
+      data_inicio:
+        type: string
+      descricao:
+        type: string
+      equipe:
+        type: string
+      id:
+        type: string
+      imagem:
+        type: string
+      localizacao:
+        type: string
+      nome:
+        type: string
+      notas:
+        type: string
+      objetivos:
+        type: string
+      status:
+        type: string
+    type: object
+  models.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  models.NullString:
+    properties:
+      string:
+        type: string
+      valid:
+        type: boolean
+    type: object
+  models.NullTime:
+    properties:
+      string:
+        type: string
+      valid:
+        type: boolean
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API para gerenciamento de campanhas, equipamentos e dados LIDAR.
+  title: Ineof API
+  version: "1.0"
+paths:
+  /campanhas:
+    get:
+      consumes:
+      - application/json
+      description: Retorna todas as campanhas registradas no sistema
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Lista de campanhas
+          schema:
+            items:
+              $ref: '#/definitions/models.CampanhaResponse'
+            type: array
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Listar todas as campanhas
+      tags:
+      - Campanhas
+    post:
+      consumes:
+      - application/json
+      description: Cria uma nova campanha no sistema
+      parameters:
+      - description: Dados da campanha
+        in: body
+        name: campanha
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.createCampanhaRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Campanha criada com sucesso
+          schema:
+            $ref: '#/definitions/handlers.createCampanhaResponse'
+        "400":
+          description: Erro de requisição inválida
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Criar uma nova campanha
+      tags:
+      - Campanhas
+  /campanhas/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove uma campanha do sistema pelo ID
+      parameters:
+      - description: ID da Campanha
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Mensagem de sucesso
+          schema:
+            $ref: '#/definitions/handlers.deleteCampanhaResponse'
+        "400":
+          description: Erro de requisição inválida
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Campanha não encontrada
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Deletar uma campanha
+      tags:
+      - Campanhas
+    get:
+      consumes:
+      - application/json
+      description: Retorna os detalhes de uma campanha específica
+      parameters:
+      - description: ID da campanha
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Detalhes da campanha
+          schema:
+            $ref: '#/definitions/handlers.getCampanhaResponse'
+        "400":
+          description: ID inválido
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Campanha não encontrada
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Buscar uma campanha pelo ID
+      tags:
+      - Campanhas
+    put:
+      consumes:
+      - application/json
+      description: Atualiza os dados de uma campanha existente pelo ID
+      parameters:
+      - description: ID da Campanha
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados da campanha a serem atualizados
+        in: body
+        name: campanha
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.updateCampanhaRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Campanha atualizada com sucesso
+          schema:
+            $ref: '#/definitions/handlers.updateCampanhaResponse'
+        "400":
+          description: Erro de requisição inválida
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Campanha não encontrada
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Atualizar uma campanha
+      tags:
+      - Campanhas
+swagger: "2.0"
