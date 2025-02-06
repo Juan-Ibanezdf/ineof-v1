@@ -1,0 +1,11 @@
+# Baseado em Golang com versão fixa
+FROM golang:1.22
+
+# Instalar o Swag
+RUN go install github.com/swaggo/swag/cmd/swag@latest
+
+# Definir diretório de trabalho
+WORKDIR /code
+
+# Comando padrão ao rodar o container
+ENTRYPOINT ["/go/bin/swag"]

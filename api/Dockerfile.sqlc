@@ -1,0 +1,8 @@
+# Baseado na imagem oficial do SQLC
+FROM kjconroy/sqlc:latest
+
+# Definir diretório de trabalho
+WORKDIR /src
+
+# Comando padrão ao rodar o container
+ENTRYPOINT ["sqlc", "generate"]

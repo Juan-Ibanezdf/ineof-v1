@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+  # Banco de Dados PostgreSQL com PostGIS
+  postgres:
+    container_name: ineof-db
+    image: postgis/postgis:12-3.3-alpine  # Usa PostgreSQL 12 com PostGIS embutido
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - ineof-network
+
+  # Serviço da API Golang
+  api:
+    container_name: ineof-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    environment:
+      API_PORT: ${API_PORT}
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=disable"
+    env_file:
+      - .env  # 🔥 Monta o .env corretamente no contêiner
+    working_dir: /app
+    entrypoint: ["/app/ineof-api"]
+    networks:
+      - ineof-network
+
+     # Serviço SQLC (para geração de código SQL)
+  sqlc:
+    container_name: ineof-sqlc
+    build:
+      context: ./api
+      dockerfile: Dockerfile.sqlc
+    volumes:
+      - .:/app  # Compartilha os arquivos da aplicação
+    command: ["/app/sqlc-generate.sh"]  # Script para rodar o sqlc
+    networks:
+      - ineof-network
+
+  # Serviço Swagger (para documentação da API)
+  swagger:
+    container_name: ineof-swagger
+    build:
+      context: ./api
+      dockerfile: Dockerfile.swagger
+    ports:
+      - "8081:8080"  # Porta para acessar a documentação Swagger
+    networks:
+      - ineof-network
+
+volumes:
+  pgdata: {}
+
+networks:
+  ineof-network:
+    driver: bridge
