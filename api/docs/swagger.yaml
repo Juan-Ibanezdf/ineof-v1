@@ -55,7 +55,95 @@ definitions:
       status:
         $ref: '#/definitions/models.NullString'
     type: object
+  handlers.createEquipamentoRequest:
+    properties:
+      data_aquisicao:
+        $ref: '#/definitions/models.NullTime'
+      data_calibracao:
+        $ref: '#/definitions/models.NullTime'
+      data_expiracao_garantia:
+        $ref: '#/definitions/models.NullTime'
+      data_fabricacao:
+        $ref: '#/definitions/models.NullTime'
+      data_ultima_manutencao:
+        $ref: '#/definitions/models.NullTime'
+      descricao:
+        $ref: '#/definitions/models.NullString'
+      fabricante:
+        $ref: '#/definitions/models.NullString'
+      frequencia:
+        $ref: '#/definitions/models.NullFloat64'
+      imagem:
+        $ref: '#/definitions/models.NullString'
+      localizacao:
+        type: string
+      modelo:
+        $ref: '#/definitions/models.NullString'
+      nome:
+        type: string
+      notas:
+        $ref: '#/definitions/models.NullString'
+      numero_serie:
+        type: string
+      responsavel_manutencao:
+        $ref: '#/definitions/models.NullString'
+      status_operacional:
+        type: string
+      tipo:
+        $ref: '#/definitions/models.NullString'
+      tipos_dados:
+        $ref: '#/definitions/models.NullString'
+    required:
+    - nome
+    - status_operacional
+    type: object
+  handlers.createEquipamentoResponse:
+    properties:
+      data_aquisicao:
+        $ref: '#/definitions/models.NullTime'
+      data_calibracao:
+        $ref: '#/definitions/models.NullTime'
+      data_expiracao_garantia:
+        $ref: '#/definitions/models.NullTime'
+      data_fabricacao:
+        $ref: '#/definitions/models.NullTime'
+      data_ultima_manutencao:
+        $ref: '#/definitions/models.NullTime'
+      descricao:
+        $ref: '#/definitions/models.NullString'
+      fabricante:
+        $ref: '#/definitions/models.NullString'
+      frequencia:
+        $ref: '#/definitions/models.NullFloat64'
+      id:
+        type: string
+      imagem:
+        $ref: '#/definitions/models.NullString'
+      localizacao:
+        type: string
+      modelo:
+        $ref: '#/definitions/models.NullString'
+      nome:
+        type: string
+      notas:
+        $ref: '#/definitions/models.NullString'
+      numero_serie:
+        type: string
+      responsavel_manutencao:
+        $ref: '#/definitions/models.NullString'
+      status_operacional:
+        type: string
+      tipo:
+        $ref: '#/definitions/models.NullString'
+      tipos_dados:
+        $ref: '#/definitions/models.NullString'
+    type: object
   handlers.deleteCampanhaResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  handlers.deleteEquipamentoResponse:
     properties:
       message:
         type: string
@@ -85,6 +173,47 @@ definitions:
       objetivos:
         $ref: '#/definitions/models.NullString'
       status:
+        $ref: '#/definitions/models.NullString'
+    type: object
+  handlers.getEquipamentoResponse:
+    properties:
+      data_aquisicao:
+        $ref: '#/definitions/models.NullTime'
+      data_calibracao:
+        $ref: '#/definitions/models.NullTime'
+      data_expiracao_garantia:
+        $ref: '#/definitions/models.NullTime'
+      data_fabricacao:
+        $ref: '#/definitions/models.NullTime'
+      data_ultima_manutencao:
+        $ref: '#/definitions/models.NullTime'
+      descricao:
+        $ref: '#/definitions/models.NullString'
+      fabricante:
+        $ref: '#/definitions/models.NullString'
+      frequencia:
+        $ref: '#/definitions/models.NullFloat64'
+      id:
+        type: string
+      imagem:
+        $ref: '#/definitions/models.NullString'
+      localizacao:
+        type: string
+      modelo:
+        $ref: '#/definitions/models.NullString'
+      nome:
+        type: string
+      notas:
+        $ref: '#/definitions/models.NullString'
+      numero_serie:
+        type: string
+      responsavel_manutencao:
+        $ref: '#/definitions/models.NullString'
+      status_operacional:
+        type: string
+      tipo:
+        $ref: '#/definitions/models.NullString'
+      tipos_dados:
         $ref: '#/definitions/models.NullString'
     type: object
   handlers.updateCampanhaRequest:
@@ -139,6 +268,47 @@ definitions:
       status:
         $ref: '#/definitions/models.NullString'
     type: object
+  handlers.updateEquipamentoResponse:
+    properties:
+      data_aquisicao:
+        $ref: '#/definitions/models.NullTime'
+      data_calibracao:
+        $ref: '#/definitions/models.NullTime'
+      data_expiracao_garantia:
+        $ref: '#/definitions/models.NullTime'
+      data_fabricacao:
+        $ref: '#/definitions/models.NullTime'
+      data_ultima_manutencao:
+        $ref: '#/definitions/models.NullTime'
+      descricao:
+        $ref: '#/definitions/models.NullString'
+      fabricante:
+        $ref: '#/definitions/models.NullString'
+      frequencia:
+        $ref: '#/definitions/models.NullFloat64'
+      id:
+        type: string
+      imagem:
+        $ref: '#/definitions/models.NullString'
+      localizacao:
+        type: string
+      modelo:
+        $ref: '#/definitions/models.NullString'
+      nome:
+        type: string
+      notas:
+        $ref: '#/definitions/models.NullString'
+      numero_serie:
+        type: string
+      responsavel_manutencao:
+        $ref: '#/definitions/models.NullString'
+      status_operacional:
+        type: string
+      tipo:
+        $ref: '#/definitions/models.NullString'
+      tipos_dados:
+        $ref: '#/definitions/models.NullString'
+    type: object
   models.CampanhaResponse:
     properties:
       contato:
@@ -166,10 +336,58 @@ definitions:
       status:
         type: string
     type: object
+  models.EquipamentoResponse:
+    properties:
+      data_aquisicao:
+        type: string
+      data_calibracao:
+        type: string
+      data_expiracao_garantia:
+        type: string
+      data_fabricacao:
+        type: string
+      data_ultima_manutencao:
+        type: string
+      descricao:
+        type: string
+      fabricante:
+        type: string
+      frequencia:
+        type: number
+      id:
+        type: string
+      imagem:
+        type: string
+      localizacao:
+        type: string
+      modelo:
+        type: string
+      nome:
+        type: string
+      notas:
+        type: string
+      numero_serie:
+        type: string
+      responsavel_manutencao:
+        type: string
+      status_operacional:
+        type: string
+      tipo:
+        type: string
+      tipos_dados:
+        type: string
+    type: object
   models.ErrorResponse:
     properties:
       error:
         type: string
+    type: object
+  models.NullFloat64:
+    properties:
+      float64:
+        type: number
+      valid:
+        type: boolean
     type: object
   models.NullString:
     properties:
@@ -345,4 +563,157 @@ paths:
       summary: Atualizar uma campanha
       tags:
       - Campanhas
+  /equipamentos:
+    get:
+      consumes:
+      - application/json
+      description: Retorna todos os equipamentos registrados no sistema
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Lista de equipamentos
+          schema:
+            items:
+              $ref: '#/definitions/models.EquipamentoResponse'
+            type: array
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Listar todos os equipamentos
+      tags:
+      - Equipamentos
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo equipamento no sistema
+      parameters:
+      - description: Dados do equipamento
+        in: body
+        name: equipamento
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.createEquipamentoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Equipamento criado com sucesso
+          schema:
+            $ref: '#/definitions/handlers.createEquipamentoResponse'
+        "400":
+          description: Erro de requisição inválida
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Criar um novo equipamento
+      tags:
+      - Equipamentos
+  /equipamentos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove um equipamento do sistema pelo ID
+      parameters:
+      - description: ID do Equipamento
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Mensagem de sucesso
+          schema:
+            $ref: '#/definitions/handlers.deleteEquipamentoResponse'
+        "400":
+          description: Erro de requisição inválida
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Equipamento não encontrado
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Deletar um equipamento
+      tags:
+      - Equipamentos
+    get:
+      consumes:
+      - application/json
+      description: Retorna os detalhes de um equipamento específico
+      parameters:
+      - description: ID do equipamento
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Detalhes do equipamento
+          schema:
+            $ref: '#/definitions/handlers.getEquipamentoResponse'
+        "400":
+          description: ID inválido
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Equipamento não encontrado
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Buscar um equipamento pelo ID
+      tags:
+      - Equipamentos
+    put:
+      consumes:
+      - application/json
+      description: Atualiza os dados de um equipamento existente pelo ID
+      parameters:
+      - description: ID do Equipamento
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados do equipamento a serem atualizados
+        in: body
+        name: equipamento
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.updateEquipamentoResponse'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Equipamento atualizado com sucesso
+          schema:
+            $ref: '#/definitions/handlers.updateEquipamentoResponse'
+        "400":
+          description: Erro de requisição inválida
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Equipamento não encontrado
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Erro interno do servidor
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Atualizar um equipamento
+      tags:
+      - Equipamentos
 swagger: "2.0"

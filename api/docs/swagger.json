@@ -239,6 +239,237 @@
                     }
                 }
             }
+        },
+        "/equipamentos": {
+            "get": {
+                "description": "Retorna todos os equipamentos registrados no sistema",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipamentos"
+                ],
+                "summary": "Listar todos os equipamentos",
+                "responses": {
+                    "200": {
+                        "description": "Lista de equipamentos",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.EquipamentoResponse"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Cria um novo equipamento no sistema",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipamentos"
+                ],
+                "summary": "Criar um novo equipamento",
+                "parameters": [
+                    {
+                        "description": "Dados do equipamento",
+                        "name": "equipamento",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.createEquipamentoRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Equipamento criado com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.createEquipamentoResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de requisição inválida",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/equipamentos/{id}": {
+            "get": {
+                "description": "Retorna os detalhes de um equipamento específico",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipamentos"
+                ],
+                "summary": "Buscar um equipamento pelo ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID do equipamento",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do equipamento",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.getEquipamentoResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "ID inválido",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Equipamento não encontrado",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Atualiza os dados de um equipamento existente pelo ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipamentos"
+                ],
+                "summary": "Atualizar um equipamento",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID do Equipamento",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do equipamento a serem atualizados",
+                        "name": "equipamento",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.updateEquipamentoResponse"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Equipamento atualizado com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.updateEquipamentoResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de requisição inválida",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Equipamento não encontrado",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Remove um equipamento do sistema pelo ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Equipamentos"
+                ],
+                "summary": "Deletar um equipamento",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID do Equipamento",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mensagem de sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.deleteEquipamentoResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Erro de requisição inválida",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Equipamento não encontrado",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -325,7 +556,140 @@
                 }
             }
         },
+        "handlers.createEquipamentoRequest": {
+            "type": "object",
+            "required": [
+                "nome",
+                "status_operacional"
+            ],
+            "properties": {
+                "data_aquisicao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_calibracao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_expiracao_garantia": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_fabricacao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_ultima_manutencao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "descricao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "fabricante": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "frequencia": {
+                    "$ref": "#/definitions/models.NullFloat64"
+                },
+                "imagem": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "modelo": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "numero_serie": {
+                    "type": "string"
+                },
+                "responsavel_manutencao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "status_operacional": {
+                    "type": "string"
+                },
+                "tipo": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "tipos_dados": {
+                    "$ref": "#/definitions/models.NullString"
+                }
+            }
+        },
+        "handlers.createEquipamentoResponse": {
+            "type": "object",
+            "properties": {
+                "data_aquisicao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_calibracao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_expiracao_garantia": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_fabricacao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_ultima_manutencao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "descricao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "fabricante": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "frequencia": {
+                    "$ref": "#/definitions/models.NullFloat64"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imagem": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "modelo": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "numero_serie": {
+                    "type": "string"
+                },
+                "responsavel_manutencao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "status_operacional": {
+                    "type": "string"
+                },
+                "tipo": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "tipos_dados": {
+                    "$ref": "#/definitions/models.NullString"
+                }
+            }
+        },
         "handlers.deleteCampanhaResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.deleteEquipamentoResponse": {
             "type": "object",
             "properties": {
                 "message": {
@@ -370,6 +734,68 @@
                     "$ref": "#/definitions/models.NullString"
                 },
                 "status": {
+                    "$ref": "#/definitions/models.NullString"
+                }
+            }
+        },
+        "handlers.getEquipamentoResponse": {
+            "type": "object",
+            "properties": {
+                "data_aquisicao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_calibracao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_expiracao_garantia": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_fabricacao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_ultima_manutencao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "descricao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "fabricante": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "frequencia": {
+                    "$ref": "#/definitions/models.NullFloat64"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imagem": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "modelo": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "numero_serie": {
+                    "type": "string"
+                },
+                "responsavel_manutencao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "status_operacional": {
+                    "type": "string"
+                },
+                "tipo": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "tipos_dados": {
                     "$ref": "#/definitions/models.NullString"
                 }
             }
@@ -453,6 +879,68 @@
                 }
             }
         },
+        "handlers.updateEquipamentoResponse": {
+            "type": "object",
+            "properties": {
+                "data_aquisicao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_calibracao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_expiracao_garantia": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_fabricacao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "data_ultima_manutencao": {
+                    "$ref": "#/definitions/models.NullTime"
+                },
+                "descricao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "fabricante": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "frequencia": {
+                    "$ref": "#/definitions/models.NullFloat64"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imagem": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "modelo": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "numero_serie": {
+                    "type": "string"
+                },
+                "responsavel_manutencao": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "status_operacional": {
+                    "type": "string"
+                },
+                "tipo": {
+                    "$ref": "#/definitions/models.NullString"
+                },
+                "tipos_dados": {
+                    "$ref": "#/definitions/models.NullString"
+                }
+            }
+        },
         "models.CampanhaResponse": {
             "type": "object",
             "properties": {
@@ -494,11 +982,84 @@
                 }
             }
         },
+        "models.EquipamentoResponse": {
+            "type": "object",
+            "properties": {
+                "data_aquisicao": {
+                    "type": "string"
+                },
+                "data_calibracao": {
+                    "type": "string"
+                },
+                "data_expiracao_garantia": {
+                    "type": "string"
+                },
+                "data_fabricacao": {
+                    "type": "string"
+                },
+                "data_ultima_manutencao": {
+                    "type": "string"
+                },
+                "descricao": {
+                    "type": "string"
+                },
+                "fabricante": {
+                    "type": "string"
+                },
+                "frequencia": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "imagem": {
+                    "type": "string"
+                },
+                "localizacao": {
+                    "type": "string"
+                },
+                "modelo": {
+                    "type": "string"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "notas": {
+                    "type": "string"
+                },
+                "numero_serie": {
+                    "type": "string"
+                },
+                "responsavel_manutencao": {
+                    "type": "string"
+                },
+                "status_operacional": {
+                    "type": "string"
+                },
+                "tipo": {
+                    "type": "string"
+                },
+                "tipos_dados": {
+                    "type": "string"
+                }
+            }
+        },
         "models.ErrorResponse": {
             "type": "object",
             "properties": {
                 "error": {
                     "type": "string"
+                }
+            }
+        },
+        "models.NullFloat64": {
+            "type": "object",
+            "properties": {
+                "float64": {
+                    "type": "number"
+                },
+                "valid": {
+                    "type": "boolean"
                 }
             }
         },
